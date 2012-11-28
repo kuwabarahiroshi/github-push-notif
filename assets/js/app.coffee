@@ -1,3 +1,4 @@
-$ ->
-  x = -> $('<h2>Express Coffee Template 1.4</h2>').prependTo('.right')
-  setTimeout x, 500
+#= require lib/jquery.1.8.3.min.js
+
+jQuery ($) ->
+  $('')
