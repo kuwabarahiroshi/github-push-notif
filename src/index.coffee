@@ -1,10 +1,10 @@
 # Module requirements
 express = require 'express'
-stylus = require 'stylus'
-assets = require 'connect-assets'
-http = require 'http'
-path = require 'path'
-routes = require './routes'
+stylus  = require 'stylus'
+assets  = require 'connect-assets'
+http    = require 'http'
+path    = require 'path'
+routing = require 'app/routing'
 
 # Create app
 app = express()
@@ -12,10 +12,9 @@ app = express()
 # Env vars
 port = process.env.PORT or process.env.VMC_APP_PORT or 3000
 env = app.get 'env'
-app_dir = path.join process.cwd(), 'app'
 views_dir = path.join process.cwd(), 'views'
 public_dir = path.join process.cwd(), 'public'
-config = require path.join app_dir, 'config', env
+config = require path.join 'app/config', env
 
 # Configure
 app.configure ->
@@ -38,7 +37,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
 
 # Routing
-routes.bootstrap app
+routing.bootstrap app
 
 # Start Server
 http.createServer(app).listen port, ->

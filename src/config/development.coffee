@@ -6,7 +6,7 @@ module.exports = (req, res, next) ->
     nextcore:
       scheme: 'http'
       host:   'nextcore-unit-kuwabara.homes.co.jp'
-      port:   43411
+      port:   80
       key:    'sample-key'
       secret: 'MzkyZmRkNmJjN2E1M2NhYjIzNTcxMTY3Y2ZhMGJiNDRmNDc3YWIzYzk1YjgzNzIwMmY1YzRiOWE5OTIzNmE0YQ'
 

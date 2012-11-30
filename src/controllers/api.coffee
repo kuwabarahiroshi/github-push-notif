@@ -1,6 +1,6 @@
 Path = require 'path'
-Client = require 'nextcore/client'
 Query = require 'querystring'
+Client = require 'app/lib/nextcore/client'
 
 merge = (borrower, providers...) ->
   for p in providers
@@ -20,5 +20,8 @@ module.exports = (req, res) ->
     api_response.on 'end', -> res.end()
 
   client.on 'error', (err) ->
+    console.error err
+    res.write err.toString()
+    res.end()
 
   client.request method, path, query, headers
