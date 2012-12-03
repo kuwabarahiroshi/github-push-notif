@@ -9,10 +9,14 @@ merge = (borrower, providers...) ->
 
 module.exports = (req, res) ->
   config  = req.app.locals.nextcore
-  method  = req.method
   path    = Path.join '/', req.params[0]
   query   = merge {}, req.query, req.body
+  method  = query['http-request-method'] || req.method
   headers = req.headers
+  delete query['http-request-method']
+
+  if method is 'PUT'
+    headers['content-type'] = 'application/x-www-form-urlencoded'
 
   client = new Client config
   client.on 'response', (api_response) ->

@@ -52,7 +52,7 @@ class Client extends EventEmitter
       headers: headers
       agent: false
 
-    console.log request_params
+    console.log @host + path
     console.log signed_query
 
     try

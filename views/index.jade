@@ -4,8 +4,8 @@ block content
   h1 NextCore API Explore
 
   head
-    form(action='/proxy')
-      select(name='method')
+    form(id='api-request-form', target='result', action='/api')
+      select(id='method', name='http-request-method')
         option(value='GET')    GET
         option(value='POST')   POST
         option(value='PUT')    PUT
@@ -13,4 +13,10 @@ block content
 
       | #{nextcore.scheme}://#{nextcore.host}
 
-      input(type='text', name='path', value='/')
+      input(id='path', type='text', value='/')
+
+      p クエリ
+      textarea(id='query')
+
+  section
+    iframe(id='result')
