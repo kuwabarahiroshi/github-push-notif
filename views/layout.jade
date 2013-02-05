@@ -1,23 +1,32 @@
 !!! 5
-//if lt IE 7 ]><html class="ie ie6-8 ie6-7 ie6" lang="ja">
-//if IE 7 ]><html class="ie ie6-8 ie6-7 ie7" lang="ja">
-//if IE 8 ]><html class="ie ie6-8 ie8" lang="ja">
-//if IE 9 ]><html class="ie ie9" lang="ja">
-// [if (gt IE 9)|!(IE)]><!--><html class="standard" lang="ja"><!--<![endif]
-head
-  meta(charset='utf-8')
-  title API Explorer for NextCore
-  meta(name='description', content='')
-  meta(name='author', content='')
+//if lt IE 7
+  html.ie.ie6.ie6-9.ie6-8.ie6-7(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+//if IE 7
+  html.ie.ie7.ie6-9.ie6-8.ie6-7(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+//if IE 8
+  html.ie.ie8.ie6-9.ie6-8(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+//if IE 9
+  html.ie.ie9.ie6-9(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+// [if (gt IE 9)|!(IE)] <!
+html.standard(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+  // <![endif]
 
-  // Mobile Specific
-  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  head
+    meta(charset='utf-8')
+    title NextCore API Explorer
+    meta(name='description', content='')
+    meta(name='keywords',    content='')
 
-  // Assets
-  != css('app')
-  != js('app')
-body
-  block pre_content
-  block content
-  block post_content
-| </html>
+    // Mobile Specific
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes')
+
+    //if lt IE 9
+      script(type='text/javascript', src='/js/html5shiv.js')
+
+    // Assets
+    != css('app')
+    != js('app')
+  body
+    block pre-body
+    block content
+    block post-body

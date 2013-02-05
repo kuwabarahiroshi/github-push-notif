@@ -4,19 +4,30 @@ block content
   h1 NextCore API Explore
 
   head
-    form(id='api-request-form', target='result', action='/api')
-      select(id='method', name='http-request-method')
-        option(value='GET')    GET
-        option(value='POST')   POST
-        option(value='PUT')    PUT
-        option(value='DELETE') DELETE
+    form#api-request-form(action='/api', target='native-form-target')
+      select#method(name='http-request-method')
+        option(value='GET',    selected=(method == 'GET'))    GET
+        option(value='POST',   selected=(method == 'POST'))   POST
+        option(value='PUT',    selected=(method == 'PUT'))    PUT
+        option(value='DELETE', selected=(method == 'DELETE')) DELETE
 
       | #{nextcore.scheme}://#{nextcore.host}
 
-      input(id='path', type='text', value='/')
+      input#path.ui-api-path-input(type='text', value=(path + (query ? '?' + query : '')))
 
-      p クエリ
-      textarea(id='query')
+      div.query-params
+        label(for='query') クエリ
+        textarea#query
+
+      div.meta
+        p
+          | Response Time:&nbsp;
+          span#loading
+            img(src='/icons/loading.gif')
+          span#response-time
+          | millisec
 
   section
-    iframe(id='result')
+    iframe#native-form-target
+    pre
+      code#result.json
