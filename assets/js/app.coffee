@@ -32,7 +32,7 @@ jQuery ($) ->
       .map (key) -> localStorage.getItem key
 
     $method.val(method) if method
-    $path  .val(path)   if path && $path.val() == '/'
+    $path  .val(path)   if path && path.match(/^\//) && $path.val() == '/'
     $query .val(query)  if query
 
   #
@@ -115,7 +115,9 @@ jQuery ($) ->
       response_time = Date.now() - start_time
 
       try
-        json = JSON.stringify(JSON.parse(res), null, '  ')
+        response = JSON.parse(res)
+        window.response = response
+        json = JSON.stringify(response, null, '  ')
       catch e
         tryNativeFormSubmission()
 
