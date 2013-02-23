@@ -1,6 +1,7 @@
 Path = require 'path'
 Query = require 'querystring'
 Client = require 'app/lib/nextcore/client'
+config = require 'app/config'
 
 merge = (borrower, providers...) ->
   for p in providers
@@ -8,7 +9,6 @@ merge = (borrower, providers...) ->
   borrower
 
 module.exports = (req, res) ->
-  config  = req.app.locals.nextcore
   path    = Path.join '/', req.params[0]
   query   = merge {}, req.query, req.body
   method  = query['http-request-method'] || req.method
@@ -18,7 +18,7 @@ module.exports = (req, res) ->
   if method is 'PUT'
     headers['content-type'] = 'application/x-www-form-urlencoded'
 
-  client = new Client config
+  client = new Client config.nextcore
   client.on 'response', (api_response) ->
     api_response.on 'data', (chunk) -> res.write chunk
     api_response.on 'end', -> res.end()

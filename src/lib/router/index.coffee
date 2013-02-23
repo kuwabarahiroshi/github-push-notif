@@ -1,5 +1,5 @@
 # Module requirements
-path = require 'path'
+config = require 'app/config'
 
 # Default action
 do_nothing = (req, res) -> res.end()
@@ -10,7 +10,7 @@ do_nothing = (req, res) -> res.end()
 #
 exports.bootstrap = (app) ->
   # Get routing entries for app env
-  entries = require path.join __dirname, app.get 'env'
+  entries = require "app/config/routing/#{config.env}"
 
   # Export entries as module constant.
   Object.freeze entries

@@ -1,4 +1,4 @@
-[GET, POST, PUT, DELETE, ALL] = require('app/routing/verbs')
+{ GET, POST, PUT, DELETE, ALL } = require 'app/lib/router/verbs'
 
 module.exports =
   index:  GET '/',                             'index'
