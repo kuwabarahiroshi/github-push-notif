@@ -9,9 +9,12 @@
     , "connect-assets": "*"
     , "stylus": "*"
     , "nib": "*"
+    , "bootstrap-stylus": "*"
     , "markdown": "*"
     , "which": "*"
-    , "text": "*"
+    , "hiredis": "*"
+    , "redis": "*"
+    , "async": "*"
   }
   , "scripts": {
       "install": "node node_modules/coffee-script/bin/cake build"

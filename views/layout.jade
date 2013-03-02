@@ -12,21 +12,26 @@ html.standard(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#'
   // <![endif]
 
   head
+    - page.fix()
     meta(charset='utf-8')
-    title NextCore API Explorer
-    meta(name='description', content='')
-    meta(name='keywords',    content='')
+    title #{page.title}
+    meta(name='description', content=page.description)
+    meta(name='keywords',    content=page.keywords.join(', '))
 
-    // Mobile Specific
+    //- Mobile Specific
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes')
 
     //if lt IE 9
       script(type='text/javascript', src='/js/html5shiv.js')
 
-    // Assets
+    //- Assets
     != css('app')
     != js('app')
-  body
+
+    script
+      // jQuery.publish('#{page.segments.join('.')}.head')
+
+  body(id=page.id, class=page.class)
     block pre-body
     block content
     block post-body

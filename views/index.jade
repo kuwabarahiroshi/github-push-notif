@@ -1,34 +1,4 @@
 extends layout
 
 block content
-  head
-    form#api-request-form(action='/api', target='native-form-target')
-      select#method(name='http-request-method')
-        option(value='GET',    selected=(method == 'GET'))    GET
-        option(value='POST',   selected=(method == 'POST'))   POST
-        option(value='PUT',    selected=(method == 'PUT'))    PUT
-        option(value='DELETE', selected=(method == 'DELETE')) DELETE
-
-      | #{nextcore.scheme}://#{nextcore.host}
-
-      input#path.ui-api-path-input(type='text', value=((path || '/') + (query ? '?' + query : '')))
-
-      div.query-params
-        label(for='query') クエリ
-        textarea#query
-
-
-  section.main
-
-    iframe#native-form-target
-
-    div.meta
-      p
-        | Response Time:&nbsp;
-        span#loading
-          img(src='/icons/loading.gif')
-        span#response-time
-        | ms
-
-    pre
-      code#result.json
+  Hello

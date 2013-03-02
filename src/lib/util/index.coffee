@@ -16,7 +16,19 @@ deepFreeze = (o) ->
 
   return o
 
+# merge objects
+#
+# @param [Object] extendee
+# @param [Object] extenders
+# @return [Object] extendee
+merge = (extendee, extenders...)->
+  for extender in extenders
+    for own key, val of extender
+      extendee[key] = val
+
+  extendee
 
 module.exports = {
-  deepFreeze
+  deepFreeze,
+  merge
 }

@@ -4,10 +4,10 @@ action_pointer = (path) ->
   require Path.join 'app/controllers', path
 
 listen = (verb) ->
-  (pattern, action_path...) ->
+  (pattern, actions...) ->
     method:  verb
     pattern: pattern
-    action:  action_path.map action_pointer
+    actions: actions.map action_pointer
 
 verbs = {}
 for verb in ['GET', 'POST', 'PUT', 'DELETE', 'ALL']

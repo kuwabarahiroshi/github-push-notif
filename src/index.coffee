@@ -1,10 +1,10 @@
 # Module requirements
 express = require 'express'
-stylus  = require 'stylus'
 assets  = require 'connect-assets'
 http    = require 'http'
 path    = require 'path'
 router  = require 'app/lib/router'
+page    = require 'app/lib/page'
 
 # Create app
 app = express()
@@ -14,7 +14,7 @@ env = app.get 'env'
 config = require('app/config').freeze env
 views_dir = path.join process.cwd(), 'views'
 public_dir = path.join process.cwd(), 'public'
-port = process.env.PORT or process.env.VMC_APP_PORT or config.server?.port or 3000
+port = process.env.PORT or config.port or 5000
 
 # Configure
 app.configure ->
@@ -28,11 +28,14 @@ app.configure ->
   app.use express.cookieParser(config.secret)
   app.use express.session()
   app.use express.static(public_dir)
-  app.use app.router
+  app.use config()
   app.use assets()
+  app.use page.identify()
+  app.use app.router
 
 # Dev config
 app.configure 'development', ->
+  app.locals.pretty = yes
   app.use express.errorHandler()
 
 # Routing

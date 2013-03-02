@@ -21,12 +21,14 @@ exports.bootstrap = (app) ->
     configurable: no
 
   # Register each entries as app route.
-  for name, config of entries
-    do (name, config) ->
-      method  = config.method?.toLowerCase() or 'get'
-      pattern = config.pattern
-      action  = config.action or [do_nothing]
-      app[method] pattern, action...
+  for id, config of entries
+    do (id, config) ->
+      method  = config.route.method?.toLowerCase() or 'get'
+      pattern = config.route.pattern
+      actions = config.route.actions or [do_nothing]
+      app[method] pattern, (req, res)->
+        req.route.id = id
+        action(req, res) for action in actions
 
 # @API
 # @function generate

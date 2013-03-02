@@ -2,12 +2,10 @@
 # Production env config
 #
 module.exports =
-  port: 3005
+  port: 5005
   logger: 'default'
-  secret: 'c1a36caa10c91e1bd2eed400d5a8717eea649573'
-  nextcore:
-    scheme: 'http'
-    host:   'nextcore.homes.co.jp'
-    port:   80
-    key:    'sample-key'
-    secret: 'MzkyZmRkNmJjN2E1M2NhYjIzNTcxMTY3Y2ZhMGJiNDRmNDc3YWIzYzk1YjgzNzIwMmY1YzRiOWE5OTIzNmE0YQ'
+  secret: 'fNmVpvV7fTQviboauGO67VMksgthy75DSYMH4tla'
+
+  moshimo:
+    host: 'api.moshimo.com'
+    token: 'Hp1ZWT4LN8VIkzCg8vab2fuO8Al6X'
