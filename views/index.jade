@@ -1,4 +1,11 @@
 extends layout
 
 block content
-  Hello
+  | Hello
+  | #{config.moshimo.host}
+
+  ul
+    - each category in categories
+      li
+        a(href=category.Code)
+          = category.Name
