@@ -35,11 +35,22 @@ exports.bootstrap = (app) ->
 # @param name Route name
 # @param params Route parameters
 #
-# @example
-#   routing = require 'app/routing'
-#   routing.generate 'index'              # returns '/'
-#   routing.generate 'api', '/sample/api' # returns '/api/sample/api'
-#
-exports.generate = (name, params) ->
-  #TODO: implement
-  name
+path = (name, params) ->
+  unless name of exports.ENTRIES
+    throw new Error("'#{name}' route is not defined")
+
+  { route } = exports.ENTRIES[name]
+
+  unless route
+    throw new Error("'#{name}' route is miss configured.")
+
+  route.pattern.replace(/\\?:([a-zA-Z][\w]*)/g, (match, name)->
+    return match.slice(1) if match.charAt(0) == '\\'
+    return params[name] if name of params
+    ''
+  )
+
+exports.generator = ->
+  (req, res, next)->
+    req.app.locals.path = path
+    next()

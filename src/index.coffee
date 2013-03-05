@@ -30,6 +30,7 @@ app.configure ->
   app.use express.static(public_dir)
   app.use config()
   app.use assets()
+  app.use router.generator()
   app.use page.identify()
   app.use app.router
 

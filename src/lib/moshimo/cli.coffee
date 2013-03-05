@@ -9,12 +9,21 @@ StreamBuffer = require 'app/lib/util/stream_buffer'
 
 module.exports =
   categories: (cb)->
-    params =
+    @api '/category/list2', {}, (err, data)->
+      cb err, data.CategoryList2.Category.Children
+
+  subcategories: (opts, cb)->
+    q = { article_category_code: opts.category }
+    @api '/category/list2', q, (err, data)->
+      cb err, data.CategoryList2.Category.Children
+
+  api: (path, option, cb)->
+    params = merge option,
       authorization_code: config.moshimo.token
 
     query = Query.stringify params
 
-    uri = "http://#{host}/category/list2.json?#{query}"
+    uri = "http://#{host}#{path}.json?#{query}"
 
     req = URL.parse uri
 
@@ -25,7 +34,7 @@ module.exports =
         res.pipe stream
         res.on 'end', ->
           data = JSON.parse stream.toString()
-          cb null, data.CategoryList2.Category.Children
+          cb null, data
     )
     .on('error', (error)->
       cb error
