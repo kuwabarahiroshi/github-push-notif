@@ -1,11 +1,21 @@
 extends ../layout
 
 block content
-  | Hello
-  | #{config.moshimo.host}
+  h1 #{category.Name || 'カテゴリ一覧'}
 
-  ul
-    - each category in categories
+  ul.topic-path
+    if category.Name
       li
-        a(href=path('app.sub.categories', {category: category.Code}))
+        a(href=path('app.categories'))
+          | カテゴリ一覧
+
+    for category in parents
+      li
+        a(href=path('app.category.detail', {category: category.Code}))
+          = category.Name
+
+  ul.sub-categories
+    for category in children
+      li
+        a(href=path('app.category.detail', {category: category.Code}))
           = category.Name

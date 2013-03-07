@@ -3,15 +3,28 @@ config = require 'app/config'
 moshimo = require 'app/lib/moshimo/cli'
 
 module.exports = (req, res) ->
-  {category, subcategory} = req.params
-  console.log "category: #{category}, subcategory: #{subcategory}"
+  {category} = req.params
+  console.log "category: #{category}"
 
   unless category
-    return moshimo.categories (err, categories)->
+    return moshimo.categories (err, data)->
       throw err if err
-      res.render 'index/categories', { categories }
+      category = data.Category
+      children = data.Category.Children
+      parents = data.Category.Parents
+      res.render 'index/categories', {
+        category,
+        children,
+        parents
+      }
 
-  unless subcategory
-    return moshimo.subcategories { category }, (err, categories)->
-      throw err if err
-      res.render 'index/subcategories', { categories }
+  moshimo.subcategories { category }, (err, data)->
+    throw err if err
+    category = data.Category
+    children = data.Category.Children
+    parents = data.Category.Parents
+    res.render 'index/categories', {
+      category,
+      children,
+      parents
+    }

@@ -10,12 +10,14 @@ StreamBuffer = require 'app/lib/util/stream_buffer'
 module.exports =
   categories: (cb)->
     @api '/category/list2', {}, (err, data)->
-      cb err, data.CategoryList2.Category.Children
+      console.log data.CategoryList2
+      cb err, data.CategoryList2
 
   subcategories: (opts, cb)->
     q = { article_category_code: opts.category }
     @api '/category/list2', q, (err, data)->
-      cb err, data.CategoryList2.Category.Children
+      console.log data.CategoryList2
+      cb err, data.CategoryList2
 
   api: (path, option, cb)->
     params = merge option,
