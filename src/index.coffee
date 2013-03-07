@@ -1,49 +1,42 @@
-
+# Module requirements
 express = require 'express'
-stylus = require 'stylus'
-assets = require 'connect-assets'
-mongoose = require 'mongoose'
+assets  = require 'connect-assets'
+path    = require 'path'
+router  = require 'app/lib/router'
+page    = require 'app/lib/page'
 
-#### Basic application initialization
-# Create app instance.
+# Create app
 app = express()
 
+# Env vars
+env = app.get 'env'
+config = require('app/config').freeze env
+public_dir = path.join process.cwd(), 'public'
+app.port = process.env.PORT or process.env.VMC_APP_PORT or config.port or 5000
 
-# Define Port
-app.port = process.env.PORT or process.env.VMC_APP_PORT or 3000
+# Configure
+app.configure ->
+  app.set 'view engine', 'jade'
+  app.use express.favicon()
+  app.use express.logger(config.logger or 'dev')
+  app.use express.bodyParser()
+  app.use express.methodOverride()
+  app.use express.cookieParser(config.secret)
+  app.use express.session()
+  app.use express.static(public_dir)
+  app.use config()
+  app.use assets()
+  app.use router.generator()
+  app.use page.identify()
+  app.use app.router
 
+# Dev config
+app.configure 'development', ->
+  app.locals.pretty = yes
+  app.use express.errorHandler()
 
-# Config module exports has `setEnvironment` function that sets app settings depending on environment.
-config = require "./config"
-app.configure 'production', 'development', 'testing', ->
-	config.setEnvironment app.settings.env
-
-# db_config = "mongodb://#{config.DB_USER}:#{config.DB_PASS}@#{config.DB_HOST}:#{config.DB_PORT}/#{config.DB_NAME}"
-# mongoose.connect db_config
-
-mongoose.connect 'mongodb://localhost/example'
-
-
-#### View initialization 
-# Add Connect Assets.
-app.use assets()
-# Set the public folder as static assets.
-app.use express.static(process.cwd() + '/public')
- 
-
-# Set View Engine.
-app.set 'view engine', 'jade'
-
-# [Body parser middleware](http://www.senchalabs.org/connect/middleware-bodyParser.html) parses JSON or XML bodies into `req.body` object
-app.use express.bodyParser()
-
-
-#### Finalization
-# Initialize routes
-routes = require './routes'
-routes(app)
-
+# Routing
+router.bootstrap app
 
 # Export application object
 module.exports = app
-

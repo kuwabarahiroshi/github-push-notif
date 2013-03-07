@@ -13,14 +13,14 @@ reset = '\x1B[0m'
 pkg = JSON.parse fs.readFileSync('./package.json')
 testCmd = pkg.scripts.test
 startCmd = pkg.scripts.start
-  
+
 
 log = (message, color, explanation) ->
   console.log color + message + reset + ' ' + (explanation or '')
 
 # Compiles app.coffee and src directory to the .app directory
 build = (callback) ->
-  options = ['-c','-b', '-o', '.app', 'src']
+  options = ['-c','-b', '-o', 'node_modules/app', 'src']
   cmd = which.sync 'coffee'
   coffee = spawn cmd, options
   coffee.stdout.pipe process.stdout
@@ -78,7 +78,7 @@ task 'test', 'Run Mocha tests', ->
 
 task 'dev', 'start dev env', ->
   # watch_coffee
-  options = ['-c', '-b', '-w', '-o', '.app', 'src']
+  options = ['-c', '-b', '-w', '-o', 'node_modules/app', 'src']
   cmd = which.sync 'coffee'  
   coffee = spawn cmd, options
   coffee.stdout.pipe process.stdout
@@ -88,15 +88,15 @@ task 'dev', 'start dev env', ->
   supervisor = spawn 'node', [
     './node_modules/supervisor/lib/cli-wrapper.js',
     '-w',
-    '.app,views', 
-    '-e', 
-    'js|jade', 
+    'node_modules/app,views',
+    '-e',
+    'js|jade',
     'server'
   ]
   supervisor.stdout.pipe process.stdout
   supervisor.stderr.pipe process.stderr
   log 'Watching js files and running server', green
-  
+
 task 'debug', 'start debug env', ->
   # watch_coffee
   options = ['-c', '-b', '-w', '-o', '.app', 'src']
@@ -121,7 +121,7 @@ task 'debug', 'start debug env', ->
   chrome.stdout.pipe process.stdout
   chrome.stderr.pipe process.stderr
   log 'Debugging server', green
-  
+
 option '-n', '--name [NAME]', 'name of model to `scaffold`'
 task 'scaffold', 'scaffold model/controller/test', (options) ->
   if not options.name?
@@ -130,7 +130,3 @@ task 'scaffold', 'scaffold model/controller/test', (options) ->
   log "Scaffolding `#{options.name}`", green
   scaffold = require './scaffold'
   scaffold options.name
-  
-
-
-  

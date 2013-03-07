@@ -1,25 +1,36 @@
 !!! 5
-//if lt IE 7 ]><html class="ie ie6" lang="en">
-//if IE 7 ]><html class="ie ie7" lang="en">
-//if IE 8 ]><html class="ie ie8" lang="en">
-// [if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]
-head
-  meta(charset='utf-8')
-  title Express CoffeeScript Template
-  meta(name='description', content='')
-  meta(name='author', content='')
-  // Mobile Specific
-  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//if lt IE 7
+  html.ie.ie6.ie6-9.ie6-8.ie6-7(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+//if IE 7
+  html.ie.ie7.ie6-9.ie6-8.ie6-7(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+//if IE 8
+  html.ie.ie8.ie6-9.ie6-8(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+//if IE 9
+  html.ie.ie9.ie6-9(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+// [if (gt IE 9)|!(IE)] <!
+html.standard(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#')
+  // <![endif]
 
-  // CSS
-  != css("//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap.no-icons.min.css")
-  != css('app')
-  
-body
-  block content
+  head
+    - page.fix()
+    meta(charset='utf-8')
+    title #{page.title}
+    meta(name='description', content=page.description)
+    meta(name='keywords',    content=page.keywords.join(', '))
 
-  != js('//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js')
-  != js('//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js')
-  != js('app')
+    //- Mobile Specific
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes')
 
-| </html>
+    //if lt IE 9
+      script(type='text/javascript', src='/js/html5shiv.js')
+
+    //- Assets
+    != css('app')
+    != js('app')
+
+    script
+      // jQuery.publish('#{page.segments.join('.')}.head')
+  body(id=page.id, class=page.class)
+    block pre-body
+    block content
+    block post-body
