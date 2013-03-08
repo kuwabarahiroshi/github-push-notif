@@ -9,3 +9,5 @@ module.exports =
   moshimo:
     host: 'api.moshimo.com'
     token: 'Hp1ZWT4LN8VIkzCg8vab2fuO8Al6X'
+
+  redis: process.env.REDISCLOUD_URL

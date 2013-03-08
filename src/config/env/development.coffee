@@ -7,3 +7,5 @@ current = require './current'
 module.exports = merge {}, current,
   port: 5000
   logger: 'dev'
+
+  redis: 'redis://localhost:6379/1'
