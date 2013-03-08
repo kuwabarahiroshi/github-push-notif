@@ -1,3 +1,6 @@
+#
+# Module dependencies
+#
 http = require 'http'
 URL = require 'url'
 Query = require 'querystring'
@@ -7,12 +10,24 @@ cache = require 'app/lib/cache'
 { merge } = require 'app/lib/util'
 host = config.moshimo.host
 
+#
+# Module exports
+#
 module.exports =
+  # Alias for /category/list2
+  #
+  # @param {Object} opts
+  # @param {Function} cb
   categories: (opts, cb)->
     q = { article_category_code: opts.category }
     @api '/category/list2', q, (err, data)->
       cb err, data.CategoryList2
 
+  # Executes Moshimo API request unless cached data available
+  #
+  # @param {String} path
+  # @param {Object} option
+  # @param {Function} cb
   api: (path, option, cb)->
     # try to get cache
     cache.get @key(path, option), (err, json)=>
@@ -24,9 +39,18 @@ module.exports =
       return cb(null, data) if data
       return @_api path, option, cb
 
+  # Generates cache key
+  #
+  # @param {String} path
+  # @param {Object} option
   key: (path, option)->
     "#{path}?#{Query.stringify option}"
 
+  # Moshimo API request and stores to cache
+  #
+  # @param {String} path
+  # @param {Object} option
+  # @param {Function} cb
   _api: (path, option, cb)->
     params = merge {}, option,
       authorization_code: config.moshimo.token
