@@ -99,7 +99,7 @@ task 'dev', 'start dev env', ->
 
 task 'debug', 'start debug env', ->
   # watch_coffee
-  options = ['-c', '-b', '-w', '-o', '.app', 'src']
+  options = ['-c', '-b', '-w', '-o', 'node_modules/app', 'src']
   cmd = which.sync 'coffee'  
   coffee = spawn cmd, options
   coffee.stdout.pipe process.stdout
