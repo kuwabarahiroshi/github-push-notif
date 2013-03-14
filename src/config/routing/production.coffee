@@ -1,4 +1,4 @@
-{ GET, POST, PUT, DELETE, ALL } = require 'app/lib/router/verbs'
+{ GET, POST, PUT, DELETE, ALL, SOCKET } = require 'app/lib/router/verbs'
 
 module.exports =
   'app.index':
@@ -9,3 +9,6 @@ module.exports =
 
   'app.category.detail':
     route: GET '/categories/:category', 'index'
+
+  'socket.connection':
+    route: SOCKET 'connection', 'socket/connection'

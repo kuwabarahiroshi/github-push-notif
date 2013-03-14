@@ -17,6 +17,7 @@
     , "redis": "*"
     , "async": "*"
     , "wrench": "*"
+    , "socket.io": "*"
   }
   , "scripts": {
       "install": "node node_modules/coffee-script/bin/cake build"

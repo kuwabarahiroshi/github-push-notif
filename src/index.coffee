@@ -1,18 +1,21 @@
 # Module requirements
-express = require 'express'
-assets  = require 'connect-assets'
-path    = require 'path'
-router  = require 'app/lib/router'
-page    = require 'app/lib/page'
+http     = require 'http'
+express  = require 'express'
+socketio = require 'socket.io'
+assets   = require 'connect-assets'
+path     = require 'path'
+router   = require 'app/lib/router'
+page     = require 'app/lib/page'
 
 # Create app
 app = express()
+server = http.createServer(app)
+io = socketio.listen(server)
 
 # Env vars
 env = app.get 'env'
 config = require('app/config').freeze env
 public_dir = path.join process.cwd(), 'public'
-app.port = process.env.PORT or process.env.VMC_APP_PORT or config.port or 5000
 
 # Configure
 app.configure ->
@@ -36,7 +39,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
 
 # Routing
-router.bootstrap app
+router.bootstrap app, io
 
 # Export application object
-module.exports = app
+module.exports = server
