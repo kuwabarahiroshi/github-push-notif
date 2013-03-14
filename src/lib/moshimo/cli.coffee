@@ -29,6 +29,9 @@ module.exports =
   # @param {Object} option
   # @param {Function} cb
   api: (path, option, cb)->
+    unless cache.is_ready
+      return @_api path, option, cb
+
     # try to get cache
     cache.get @key(path, option), (err, json)=>
       throw err if err
@@ -71,7 +74,7 @@ module.exports =
         res.pipe stream
         res.on 'end', ->
           json = stream.toString()
-          cache.set key, json
+          cache.set key, json if cache.is_ready
           cb null, JSON.parse json
     )
     .on('error', (error)->
