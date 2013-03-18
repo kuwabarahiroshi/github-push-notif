@@ -10,5 +10,11 @@ module.exports =
   'app.category.detail':
     route: GET '/categories/:category', 'index'
 
+  'app.article.search':
+    route: GET '/articles', 'article/search'
+
+  'app.article.detail':
+    route: GET '/articles/:article_id', 'article/detail'
+
   'socket.connection':
     route: SOCKET 'connection', 'socket/connection'

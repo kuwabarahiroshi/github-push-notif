@@ -23,6 +23,18 @@ module.exports =
     @api '/category/list2', q, (err, data)->
       cb err, data.CategoryList2
 
+  # Alias for /article/search2
+  #
+  # @param {Object} query
+  # @param {Function} cb
+  articles: (opts, cb)->
+    q =
+      article_category_code: opts.category
+      require_tag_list: 1
+
+    @api '/article/search2', q, (err, data)->
+      cb err, data.ArticleSearch2
+
   # Executes Moshimo API request unless cached data available
   #
   # @param {String} path
