@@ -28,7 +28,7 @@ app.configure ->
   app.use express.session()
   app.use express.static(public_dir)
   app.use config()
-  app.use assets()
+  app.use assets(buildDir: '.assets.built')
   app.use router.generator()
   app.use page.identify()
   app.use app.router

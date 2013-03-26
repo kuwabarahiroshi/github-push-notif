@@ -2,19 +2,19 @@
 
 # Freeze object recursively.
 #
-# @param [Object] o Object to be frozen.
-# @return [Object] o Returns given object itself.
-deepFreeze = (o) ->
+# @param [Object] obj Object to be frozen.
+# @return [Object] obj Returns given object itself.
+deepFreeze = (obj) ->
   # freeze given object itself.
-  Object.freeze o
+  Object.freeze obj
 
   #recursively freeze object properties.
-  for own key, val of o
+  for own key, val of obj
     continue unless typeof val is 'object'
     continue if Object.isFrozen val
     deepFreeze val
 
-  return o
+  obj
 
 # merge objects
 #
@@ -28,6 +28,9 @@ merge = (extendee, extenders...)->
 
   extendee
 
+#
+# export APIs
+#
 module.exports = {
   deepFreeze,
   merge

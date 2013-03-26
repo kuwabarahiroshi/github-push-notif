@@ -1,5 +1,5 @@
 # Module dependencies
-EventEmitter = require('events').EventEmitter
+{ EventEmitter } = require('events')
 Query  = require 'querystring'
 Crypto = require 'crypto'
 Scheme =
@@ -57,14 +57,14 @@ class Client extends EventEmitter
 
     try
       req = @scheme.request request_params
-      req.on 'response', (-> @emit 'response', arguments...).bind @
-      req.on 'error',    (-> @emit 'error',    arguments...).bind @
+      req.on 'response', => @emit 'response', arguments...
+      req.on 'error',    => @emit 'error',    arguments...
       req.write signed_query if signed_query
       req.end()
     catch err
       @emit 'error', err
 
-    @
+    return this
 
   #
   #
@@ -72,13 +72,13 @@ class Client extends EventEmitter
   sign: (method, path, query) ->
     query.timestamp = Date.now() / 1000 | 0 # timestamp in sec
     query.api_key   = @key
-    query.api_sig   = @signiture method, path, query
+    query.api_sig   = @signature method, path, query
     query
 
   #
   #
   #
-  signiture: (method, path, query) ->
+  signature: (method, path, query) ->
     q = {}
 
     # parameter keys should be in alphabetical order
@@ -97,4 +97,7 @@ class Client extends EventEmitter
     .toString('base64')
     .replace /[\+\/=]/g, (c) -> {'+': '-', '/': '_', '=': ''}[c]
 
+#
+# export Client class
+#
 module.exports = Client

@@ -11,12 +11,10 @@
     , "nib": "*"
     , "bootstrap-stylus": "*"
     , "markdown": "*"
+    , "wrench": "*"
     , "passport": "*"
     , "which": "*"
-    , "hiredis": "*"
-    , "redis": "*"
     , "async": "*"
-    , "wrench": "*"
     , "socket.io": "*"
   }
   , "scripts": {
@@ -34,7 +32,6 @@
     , "docco-husky": "*"
     , "puts": "*"
     , "node-inspector": "*"
-    , "ejs": "*"
   }
   , "engines": {
       "node": "~0.8.x"

@@ -1,4 +1,4 @@
-.app/
+.assets.built
 .DS_Store
 lib-cov
 *.seed

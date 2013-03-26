@@ -2,12 +2,13 @@
 # Production env config
 #
 module.exports =
-  port: 5005
+  port: 30000
   logger: 'default'
   secret: 'fNmVpvV7fTQviboauGO67VMksgthy75DSYMH4tla'
 
-  moshimo:
-    host: 'api.moshimo.com'
-    token: 'Hp1ZWT4LN8VIkzCg8vab2fuO8Al6X'
-
-  redis: process.env.REDISCLOUD_URL
+  nextcore:
+    scheme: 'http'
+    host:   'nextcore-in.homes.co.jp'
+    port:   80
+    key:    'sample-key'
+    secret: 'MzkyZmRkNmJjN2E1M2NhYjIzNTcxMTY3Y2ZhMGJiNDRmNDc3YWIzYzk1YjgzNzIwMmY1YzRiOWE5OTIzNmE0YQ'
