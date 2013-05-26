@@ -11,3 +11,4 @@ module.exports = (req, res) ->
 
   # Send response object as JSON
   res.send data
+  console.log data
