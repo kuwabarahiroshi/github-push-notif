@@ -1,7 +1,6 @@
 # Module requirements
 http     = require 'http'
 express  = require 'express'
-socketio = require 'socket.io'
 assets   = require 'connect-assets'
 path     = require 'path'
 router   = require 'app/lib/router'
@@ -10,7 +9,6 @@ page     = require 'app/lib/page'
 # Create app
 app = express()
 server = http.createServer(app)
-io = socketio.listen(server)
 
 # Env vars
 env = app.get 'env'
@@ -39,7 +37,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
 
 # Routing
-router.bootstrap app, io
+router.bootstrap app
 
 # Export application object
 module.exports = server
