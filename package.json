@@ -1,0 +1,42 @@
+{
+    "name": "moshimo-app-based-on-express-coffee"
+  , "version": "0.1.7"
+  , "private": true
+  , "dependencies": {
+      "express": "3.x"
+    , "coffee-script": "*"
+    , "jade": "*"
+    , "connect-assets": "*"
+    , "stylus": "*"
+    , "nib": "*"
+    , "bootstrap-stylus": "*"
+    , "markdown": "*"
+    , "passport": "*"
+    , "which": "*"
+    , "hiredis": "*"
+    , "redis": "*"
+    , "async": "*"
+    , "wrench": "*"
+  }
+  , "scripts": {
+      "install": "node node_modules/coffee-script/bin/cake build"
+    , "start": "node server.js"
+    , "test": "mocha --require should --compilers coffee:coffee-script --colors"
+  }
+  , "devDependencies": {
+      "coffee-script": "*"
+    , "mocha": "*"
+    , "should": "*"
+    , "supertest": "*"
+    , "request": "*"
+    , "supervisor": "*"
+    , "docco-husky": "*"
+    , "puts": "*"
+    , "node-inspector": "*"
+    , "ejs": "*"
+  }
+  , "engines": {
+      "node": "~0.8.x"
+    , "npm": "1.1.x"
+  }
+}
