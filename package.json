@@ -11,11 +11,12 @@
     , "nib": "*"
     , "bootstrap-stylus": "*"
     , "markdown": "*"
-    , "wrench": "*"
     , "passport": "*"
     , "which": "*"
+    , "hiredis": "*"
+    , "redis": "*"
     , "async": "*"
-    , "socket.io": "*"
+    , "wrench": "*"
   }
   , "scripts": {
       "install": "node node_modules/coffee-script/bin/cake build"
@@ -32,6 +33,7 @@
     , "docco-husky": "*"
     , "puts": "*"
     , "node-inspector": "*"
+    , "ejs": "*"
   }
   , "engines": {
       "node": "~0.8.x"
