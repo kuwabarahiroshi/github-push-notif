@@ -10,9 +10,9 @@ module.exports =
   secret: 'fNmVpvV7fTQviboauGO67VMksgthy75DSYMH4tla'
 
   google:
-    clientId: '628419494774.apps.googleusercontent.com'
-    clientSecret: 'QEIsBlQJyL5vBDn9dj8vcbah'
-    refreshToken: '1/pi_-jLQ5P8wBKfDmKopL9WreF_nf4E1evSiJHZaECx8'
+    clientId: '461738881469-ogussb6k787p13oi4btrjasadi93l02e.apps.googleusercontent.com'
+    clientSecret: 'kCGXix7cK5tMsueQpyiZNoou'
+    refreshToken: '1/yLlioTEGQtLQbu1SiH17k0D3RaWEs4TRi_X-M6F1WPo'
     api:
       token:
         hostname: 'accounts.google.com'
