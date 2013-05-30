@@ -10,6 +10,7 @@ deepFreeze = (o) ->
 
   #recursively freeze object properties.
   for own key, val of o
+    continue unless val
     continue unless typeof val is 'object'
     continue if Object.isFrozen val
     deepFreeze val
