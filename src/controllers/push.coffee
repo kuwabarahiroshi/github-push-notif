@@ -10,7 +10,12 @@ StreamBuffer = require 'app/lib/util/stream_buffer'
 #
 module.exports = (req, res) ->
   res.end()
-  payload = JSON.stringify(req.body)
+  try
+    payload = JSON.parse(req.body?.payload)
+  catch e
+    console.error e
+
+  return unless payload
 
   query =
     client_id: config.google.clientId
@@ -41,16 +46,22 @@ handler = (payload) ->
       'Content-Type': 'application/json'
       'Authorization': auth.token_type + ' ' + auth.access_token
 
-    for channelId of registry
-      query = JSON.stringify {
-        channelId: channelId
-        subchannelId: '0'
-        payload: 'payload'
-      }
-      console.log channelId
-      console.log query
-      message = https.request(request, messageHandler)
-      message.write(query)
-      message.end()
+    url = payload.repository?.url
+    hash = payload.head_commit?.id || url
+    pusher = payload.pusher?.name || 'unknown'
+    commits = payload.commits?.length || 0
+    at = payload.repository?.pushed_at || Date.now()
+
+    if url of registry
+      for channelId, channelConfig of registry[url]
+        query = JSON.stringify {
+          channelId: channelId
+          subchannelId: '0'
+          payload: JSON.stringify({url, hash, at, pusher, commits})
+        }
+        console.log query
+        message = https.request(request, messageHandler)
+        message.write(query)
+        message.end()
 
   tokenHandler
