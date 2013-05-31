@@ -39,5 +39,9 @@ app.configure 'development', ->
 # Routing
 router.bootstrap app
 
+# uncaughtException
+process.on 'uncaughtException', (err) ->
+  console.error err
+
 # Export application object
 module.exports = server

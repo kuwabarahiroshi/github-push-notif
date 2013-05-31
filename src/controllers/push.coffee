@@ -9,13 +9,16 @@ StreamBuffer = require 'app/lib/util/stream_buffer'
 #
 #
 module.exports = (req, res) ->
+  console.log 'aaa'
   res.end()
+  console.log 'bbb'
   try
     payload = JSON.parse(req.body?.payload)
   catch e
     console.error e
 
   return unless payload
+  console.log 'ccc'
 
   query =
     client_id: config.google.clientId
@@ -23,24 +26,29 @@ module.exports = (req, res) ->
     refresh_token: config.google.refreshToken
     grant_type: 'refresh_token'
 
+  console.log 'ddd'
   tokenReq = https.request(config.google.api.token, handler(payload))
   tokenReq.write(Query.stringify(query))
   tokenReq.end()
+  console.log 'eee'
 
 handler = (payload) ->
   tokenHandler = (res) ->
     buffer = new StreamBuffer
     res.pipe buffer
     res.on 'end', ->
+      console.log 'fff'
       sendMessage JSON.parse buffer
 
   messageHandler = (res) ->
     buffer = new StreamBuffer
     res.pipe buffer
     res.on 'end', ->
+      console.log 'ggg'
       console.log buffer.toString()
 
   sendMessage = (auth) ->
+    console.log 'hhh'
     request = merge {}, config.google.api.message
     request.headers =
       'Content-Type': 'application/json'
@@ -52,6 +60,7 @@ handler = (payload) ->
     commits = payload.commits?.length || 0
     at = payload.repository?.pushed_at || Date.now()
 
+    console.log registry
     if url of registry
       for channelId, channelConfig of registry[url]
         query = JSON.stringify {
