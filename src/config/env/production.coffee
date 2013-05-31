@@ -7,12 +7,12 @@ URL = require 'url'
 module.exports =
   port: 5000
   logger: 'default'
-  secret: 'fNmVpvV7fTQviboauGO67VMksgthy75DSYMH4tla'
+  secret: process.env.EXPRESS_SECRET
 
   google:
-    clientId: '461738881469-ogussb6k787p13oi4btrjasadi93l02e.apps.googleusercontent.com'
-    clientSecret: 'kCGXix7cK5tMsueQpyiZNoou'
-    refreshToken: '1/yLlioTEGQtLQbu1SiH17k0D3RaWEs4TRi_X-M6F1WPo'
+    clientId: process.env.GOOGLE_CLIENT_ID
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN
     api:
       token:
         hostname: 'accounts.google.com'
